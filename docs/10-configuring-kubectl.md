@@ -56,7 +56,6 @@ controller-manager   Healthy   ok
 scheduler            Healthy   ok
 etcd-0               Healthy   {"health": "true"}
 etcd-1               Healthy   {"health": "true"}
-etcd-2               Healthy   {"health": "true"}
 ```
 
 List the nodes in the remote Kubernetes cluster:
@@ -71,7 +70,6 @@ kubectl get nodes
 NAME       STATUS    AGE       VERSION
 worker-0   Ready    <none>   75s   v1.15.0
 worker-1   Ready    <none>   73s   v1.15.0
-worker-2   Ready    <none>   72s   v1.15.0
 ```
 
 Next: [Provisioning Pod Network Routes](11-pod-network-routes.md)
