@@ -126,7 +126,7 @@ az vm image list --location eastus2 --publisher Canonical --offer UbuntuServer -
 ```
 
 ```shell
-UBUNTULTS="Canonical:UbuntuServer:18.04-LTS:18.04.201906170"
+UBUNTULTS="Canonical:UbuntuServer:18.04-LTS:18.04.202002080"
 ```
 
 ### Kubernetes Controllers
@@ -138,7 +138,7 @@ az vm availability-set create -g kubernetes -n controller-as
 ```
 
 ```shell
-for i in 0 1 2; do
+for i in 0 1; do
     echo "[Controller ${i}] Creating public IP..."
     az network public-ip create -n controller-${i}-pip -g kubernetes > /dev/null
 
@@ -178,7 +178,7 @@ az vm availability-set create -g kubernetes -n worker-as
 ```
 
 ```shell
-for i in 0 1 2; do
+for i in 0 1; do
     echo "[Worker ${i}] Creating public IP..."
     az network public-ip create -n worker-${i}-pip -g kubernetes > /dev/null
 
@@ -219,10 +219,8 @@ Name          ResourceGroup    PowerState    PublicIps       Location
 ------------  ---------------  ------------  --------------  ----------
 controller-0  kubernetes       VM running    XX.XXX.XXX.XXX  westus2
 controller-1  kubernetes       VM running    XX.XXX.XXX.XXX  westus2
-controller-2  kubernetes       VM running    XX.XXX.XXX.XXX  westus2
 worker-0      kubernetes       VM running    XX.XXX.XXX.XXX  westus2
 worker-1      kubernetes       VM running    XX.XXX.XXX.XXX  westus2
-worker-2      kubernetes       VM running    XX.XXX.XXX.XXX  westus2
 ```
 
 Next: [Provisioning a CA and Generating TLS Certificates](04-certificate-authority.md)
