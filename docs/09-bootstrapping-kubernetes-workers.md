@@ -4,7 +4,7 @@ In this lab you will bootstrap three Kubernetes worker nodes. The following comp
 
 ## Prerequisites
 
-The commands in this lab must be run on each worker instance: `worker-0`, `worker-1`, and `worker-2`.
+The commands in this lab must be run on each worker instance: `worker-0` and `worker-1`.
 Azure Instance Metadata Service cannot be used to set custom property. We have used *tags* on each worker VM to defined POD-CIDR used later.
 
 Retrieve the POD CIDR range for the current compute instance and keep it for later.
@@ -297,7 +297,7 @@ EOF
 }
 ```
 
-> Remember to run the above commands on each worker node: `worker-0`, `worker-1`, and `worker-2`.
+> Remember to run the above commands on each worker node: `worker-0` and `worker-1`.
 
 ## Verification
 
@@ -323,7 +323,6 @@ kubectl get nodes
 NAME       STATUS    AGE       VERSION
 worker-0   Ready    <none>   32s   v1.15.0
 worker-1   Ready    <none>   32s   v1.15.0
-worker-2   Ready    <none>   37s   v1.15.0
 ```
 
 Next: [Configuring kubectl for Remote Access](10-configuring-kubectl.md)
