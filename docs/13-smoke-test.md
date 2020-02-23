@@ -67,8 +67,8 @@ kubectl get pods -l run=nginx
 > output
 
 ```shell
-NAME                     READY     STATUS    RESTARTS   AGE
-nginx                    1/1       Running   0          15s
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          19s
 ```
 
 ### Port Forwarding
@@ -104,13 +104,13 @@ curl --head http://127.0.0.1:8080
 
 ```shell
 HTTP/1.1 200 OK
-Server: nginx/1.17.0
-Date: Sun, 16 Jun 2019 08:51:13 GMT
+Server: nginx/1.17.8
+Date: Sun, 23 Feb 2020 12:15:34 GMT
 Content-Type: text/html
 Content-Length: 612
-Last-Modified: Tue, 21 May 2019 14:23:57 GMT
+Last-Modified: Tue, 21 Jan 2020 13:36:08 GMT
 Connection: keep-alive
-ETag: "5ce409fd-264"
+ETag: "5e26fe48-264"
 Accept-Ranges: bytes
 ```
 
@@ -136,7 +136,7 @@ kubectl logs $POD_NAME
 > output
 
 ```shell
-127.0.0.1 - - [16/Jun/2019:08:51:13 +0000] "HEAD / HTTP/1.1" 200 0 "-" "curl/7.54.0" "-"
+127.0.0.1 - - [23/Feb/2020:12:15:34 +0000] "HEAD / HTTP/1.1" 200 0 "-" "curl/7.68.0" "-"
 ```
 
 ### Exec
@@ -152,7 +152,7 @@ kubectl exec -ti $POD_NAME -- nginx -v
 > output
 
 ```shell
-nginx version: nginx/1.17.0
+nginx version: nginx/1.17.8
 ```
 
 ## Services
@@ -207,13 +207,13 @@ curl -I http://$EXTERNAL_IP:$NODE_PORT
 
 ```shell
 HTTP/1.1 200 OK
-Server: nginx/1.17.0
-Date: Sun, 16 Jun 2019 08:53:18 GMT
+Server: nginx/1.17.8
+Date: Sun, 23 Feb 2020 12:17:18 GMT
 Content-Type: text/html
 Content-Length: 612
-Last-Modified: Tue, 21 May 2019 14:23:57 GMT
+Last-Modified: Tue, 21 Jan 2020 13:36:08 GMT
 Connection: keep-alive
-ETag: "5ce409fd-264"
+ETag: "5e26fe48-264"
 Accept-Ranges: bytes
 ```
 

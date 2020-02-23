@@ -7,7 +7,7 @@ In this lab you will install configure Kubernetes dashboard.
 Run the following command to deploy the dashboard:
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-rc5/aio/deploy/recommended.yaml
 ```
 
 Create a proxy to the dashboard:
@@ -16,7 +16,7 @@ Create a proxy to the dashboard:
 kubectl proxy
 ```
 
-To access the dashboard in your web browser, click the following link: http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+To access the dashboard in your web browser, click the following link: http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/
 
 > output
 A login page asking for kubeconfig file or a token

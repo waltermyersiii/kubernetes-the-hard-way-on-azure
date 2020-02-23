@@ -52,7 +52,7 @@ PS C:\Windows\system32>Invoke-WebRequest -Uri https://pkg.cfssl.org/R1.2/cfssljs
 
 ### Verification
 
-Verify `cfssl` version 1.2.0 or higher is installed:
+Verify `cfssl` version 1.4.1 or higher is installed:
 
 ```shell
 cfssl version
@@ -63,9 +63,9 @@ If this step fails with a runtime error, try installing cfssl following instruct
 > output
 
 ```shell
-Version: 1.3.3
+Version: 1.4.1
 Revision: dev
-Runtime: go1.12.3
+Runtime: go1.13.4
 ```
 
 ```shell
@@ -75,9 +75,9 @@ cfssljson -version
 > output
 
 ```shell
-Version: 1.3.3
+Version: 1.4.1
 Revision: dev
-Runtime: go1.12.3
+Runtime: go1.13.4
 ```
 
 ## Install kubectl
@@ -87,29 +87,29 @@ The `kubectl` command line utility is used to interact with the Kubernetes API S
 ### OS X
 
 ```shell
-curl -o kubectl https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/darwin/amd64/kubectl
+curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
 ```
 
 ```shell
-chmod +x kubectl
+chmod +x ./kubectl
 ```
 
 ```shell
-sudo mv kubectl /usr/local/bin/
+sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
 ### Linux
 
 ```shell
-wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubectl
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 ```
 
 ```shell
-chmod +x kubectl
+chmod +x ./kubectl
 ```
 
 ```shell
-sudo mv kubectl /usr/local/bin/
+sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
 ### Windows
@@ -121,7 +121,7 @@ PS C:\Windows\system32>choco install kubernetes-cli
 
 ### Verification
 
-Verify `kubectl` version 1.13.0 or higher is installed:
+Verify `kubectl` version 1.17.0 or higher is installed:
 
 ```shell
 kubectl version --client
@@ -130,7 +130,7 @@ kubectl version --client
 > output
 
 ```shell
-Client Version: version.Info{Major:"1", Minor:"13", GitVersion:"v1.13.0", GitCommit:"ddf47ac13c1a9483ea035a79cd7c10005ff21a6d", GitTreeState:"clean", BuildDate:"2018-12-03T21:04:45Z", GoVersion:"go1.11.2", Compiler:"gc", Platform:"darwin/amd64"}
+Client Version: version.Info{Major:"1", Minor:"17", GitVersion:"v1.17.3", GitCommit:"06ad960bfd03b39c8310aaf92d1e7c12ce618213", GitTreeState:"clean", BuildDate:"2020-02-13T18:08:14Z", GoVersion:"go1.13.8", Compiler:"gc", Platform:"darwin/amd64"}
 ```
 
 To quick check kubectl version, you can also use the following command : 
@@ -142,7 +142,7 @@ kubectl version --short
 > output
 
 ```shell
-Client Version: v1.15.0
+Client Version: v1.17.3
 ```
 
 Next: [Provisioning Compute Resources](03-compute-resources.md)

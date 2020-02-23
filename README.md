@@ -1,4 +1,4 @@
-# Kubernetes The Hard Way on Azure (Mini)
+# Kubernetes The Hard Way on Azure
 
 This tutorial is designed for [Microsoft Azure](https://azure.microsoft.com) and [Azure CLI 2.0](https://github.com/azure/azure-cli).
 It is a fork of the great [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) from [Kelsey Hightower](https://twitter.com/kelseyhightower) that describes same steps using [Google Cloud Platform](https://cloud.google.com).
@@ -21,12 +21,12 @@ The target audience for this tutorial is someone planning to support a productio
 
 Kubernetes The Hard Way guides you through bootstrapping a highly available Kubernetes cluster with end-to-end encryption between components and RBAC authentication.
 
-* [Kubernetes](https://github.com/kubernetes/kubernetes) 1.15.0
-* [containerd Container Runtime](https://github.com/containerd/containerd) 1.2.7
+* [Kubernetes](https://github.com/kubernetes/kubernetes) 1.17.3
+* [containerd Container Runtime](https://github.com/containerd/containerd) 1.3.3
 * [gVisor](https://github.com/google/gvisor) latest
 * [CNI Container Networking](https://github.com/containernetworking/cni) 0.7.1
-* [etcd](https://github.com/coreos/etcd) v3.3.13
-* [CoreDNS](https://github.com/coredns/coredns) v1.5.0
+* [etcd](https://github.com/coreos/etcd) v3.3.18
+* [CoreDNS](https://github.com/coredns/coredns) v1.6.7
 
 ## Labs
 

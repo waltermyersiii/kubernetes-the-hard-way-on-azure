@@ -31,8 +31,8 @@ kubectl get pods -l k8s-app=kube-dns -n kube-system
 
 ```
 NAME                       READY   STATUS    RESTARTS   AGE
-coredns-699f8ddd77-94qv9   1/1     Running   0          20s
-coredns-699f8ddd77-gtcgb   1/1     Running   0          20s
+coredns-59845f77f8-b4x76   1/1     Running   0          15s
+coredns-59845f77f8-hlbtc   1/1     Running   0          15s
 ```
 
 ## Verification

@@ -103,7 +103,7 @@ az network lb create -g kubernetes \
 Verify the `kubernetes-pip` static IP address was created correctly in the `kubernetes` Resource Group and chosen region:
 
 ```shell
-az network public-ip  list --query="[?name=='kubernetes-pip'].{ResourceGroup:resourceGroup, \
+az network public-ip list --query="[?name=='kubernetes-pip'].{ResourceGroup:resourceGroup, \
   Region:location,Allocation:publicIpAllocationMethod,IP:ipAddress}" -o table
 ```
 
@@ -126,7 +126,7 @@ az vm image list --location eastus2 --publisher Canonical --offer UbuntuServer -
 ```
 
 ```shell
-UBUNTULTS="Canonical:UbuntuServer:18.04-LTS:18.04.202002080"
+UBUNTULTS="Canonical:UbuntuServer:18.04-LTS:18.04.202002180"
 ```
 
 ### Kubernetes Controllers
@@ -217,10 +217,10 @@ az vm list -d -g kubernetes -o table
 ```shell
 Name          ResourceGroup    PowerState    PublicIps       Location
 ------------  ---------------  ------------  --------------  ----------
-controller-0  kubernetes       VM running    XX.XXX.XXX.XXX  westus2
-controller-1  kubernetes       VM running    XX.XXX.XXX.XXX  westus2
-worker-0      kubernetes       VM running    XX.XXX.XXX.XXX  westus2
-worker-1      kubernetes       VM running    XX.XXX.XXX.XXX  westus2
+controller-0  kubernetes       VM running    XX.XXX.XXX.XXX  eastus2
+controller-1  kubernetes       VM running    XX.XXX.XXX.XXX  eastus2
+worker-0      kubernetes       VM running    XX.XXX.XXX.XXX  eastus2
+worker-1      kubernetes       VM running    XX.XXX.XXX.XXX  eastus2
 ```
 
 Next: [Provisioning a CA and Generating TLS Certificates](04-certificate-authority.md)

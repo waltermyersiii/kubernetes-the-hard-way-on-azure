@@ -66,7 +66,6 @@ AddressPrefix    Name                            NextHopIpAddress    NextHopType
 ---------------  ------------------------------  ------------------  ----------------  -------------------  ---------------
 10.200.0.0/24    kubernetes-route-10-200-0-0-24  10.240.0.20         VirtualAppliance  Succeeded            kubernetes
 10.200.1.0/24    kubernetes-route-10-200-1-0-24  10.240.0.21         VirtualAppliance  Succeeded            kubernetes
-10.200.2.0/24    kubernetes-route-10-200-2-0-24  10.240.0.22         VirtualAppliance  Succeeded            kubernetes
 ```
 
 Next: [Deploying the DNS Cluster Add-on](12-dns-addon.md)

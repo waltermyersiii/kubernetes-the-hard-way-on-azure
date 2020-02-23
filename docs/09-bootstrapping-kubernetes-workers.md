@@ -7,18 +7,6 @@ In this lab you will bootstrap three Kubernetes worker nodes. The following comp
 The commands in this lab must be run on each worker instance: `worker-0` and `worker-1`.
 Azure Instance Metadata Service cannot be used to set custom property. We have used *tags* on each worker VM to defined POD-CIDR used later.
 
-Retrieve the POD CIDR range for the current compute instance and keep it for later.
-
-```shell
-az vm show -g kubernetes --name worker-0 --query "tags" -o tsv
-```
-
-> output
-
-```shell
-10.200.0.0/24
-```
-
 Login to each worker instance using the `az` command to find its public IP and ssh to it. Example:
 
 ```shell
@@ -50,14 +38,14 @@ Install the OS dependencies:
 
 ```shell
 wget -q --show-progress --https-only --timestamping \
-  https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.14.0/crictl-v1.14.0-linux-amd64.tar.gz \
+  https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.17.0/crictl-v1.17.0-linux-amd64.tar.gz \
   https://storage.googleapis.com/gvisor/releases/nightly/latest/runsc \
-  https://github.com/opencontainers/runc/releases/download/v1.0.0-rc8/runc.amd64\
-  https://github.com/containernetworking/plugins/releases/download/v0.8.1/cni-plugins-linux-amd64-v0.8.1.tgz \
-  https://github.com/containerd/containerd/releases/download/v1.2.7/containerd-1.2.7.linux-amd64.tar.gz \
-  https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl \
-  https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kube-proxy \
-  https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubelet
+  https://github.com/opencontainers/runc/releases/download/v1.0.0-rc10/runc.amd64\
+  https://github.com/containernetworking/plugins/releases/download/v0.8.5/cni-plugins-linux-amd64-v0.8.5.tgz \
+  https://github.com/containerd/containerd/releases/download/v1.3.2/containerd-1.3.2.linux-amd64.tar.gz \
+  https://storage.googleapis.com/kubernetes-release/release/v1.17.3/bin/linux/amd64/kubectl \
+  https://storage.googleapis.com/kubernetes-release/release/v1.17.3/bin/linux/amd64/kube-proxy \
+  https://storage.googleapis.com/kubernetes-release/release/v1.17.3/bin/linux/amd64/kubelet
 ```
 
 Create the installation directories:
@@ -79,9 +67,9 @@ Install the worker binaries:
   sudo mv runc.amd64 runc
   chmod +x kubectl kube-proxy kubelet runc runsc
   sudo mv kubectl kube-proxy kubelet runc runsc /usr/local/bin/
-  sudo tar -xvf crictl-v1.14.0-linux-amd64.tar.gz -C /usr/local/bin/
-  sudo tar -xvf cni-plugins-linux-amd64-v0.8.1.tgz -C /opt/cni/bin/
-  sudo tar -xvf containerd-1.2.7.linux-amd64.tar.gz -C /
+  sudo tar -xvf crictl-v1.17.0-linux-amd64.tar.gz -C /usr/local/bin/
+  sudo tar -xvf cni-plugins-linux-amd64-v0.8.5.tgz -C /opt/cni/bin/
+  sudo tar -xvf containerd-1.3.2.linux-amd64.tar.gz -C /
 }
 ```
 
@@ -95,7 +83,7 @@ Create the `bridge` network configuration file replacing POD_CIDR with address r
 POD_CIDR="$(echo $(curl --silent -H Metadata:true "http://169.254.169.254/metadata/instance/compute/tags?api-version=2017-08-01&format=text") | cut -d : -f2)"
 cat <<EOF | sudo tee /etc/cni/net.d/10-bridge.conf
 {
-    "cniVersion": "0.2.0",
+    "cniVersion": "0.3.0",
     "name": "bridge",
     "type": "bridge",
     "bridge": "cnio0",
@@ -117,7 +105,7 @@ Create the `loopback` network configuration file:
 ```shell
 cat <<EOF | sudo tee /etc/cni/net.d/99-loopback.conf
 {
-    "cniVersion": "0.2.0",
+    "cniVersion": "0.3.0",
     "name": "lo",
     "type": "loopback"
 }
@@ -320,9 +308,9 @@ kubectl get nodes
 > output
 
 ```shell
-NAME       STATUS    AGE       VERSION
-worker-0   Ready    <none>   32s   v1.15.0
-worker-1   Ready    <none>   32s   v1.15.0
+NAME       STATUS   ROLES    AGE   VERSION
+worker-0   Ready    <none>   17s   v1.17.3
+worker-1   Ready    <none>   13s   v1.17.3
 ```
 
 Next: [Configuring kubectl for Remote Access](10-configuring-kubectl.md)
