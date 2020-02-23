@@ -131,7 +131,7 @@ UBUNTULTS="Canonical:UbuntuServer:18.04-LTS:18.04.202002180"
 
 ### Kubernetes Controllers
 
-Create three compute instances which will host the Kubernetes control plane in `controller-as` [Availability Set](https://docs.microsoft.com/azure/virtual-machines/linux/tutorial-availability-sets#availability-set-overview):
+Create two compute instances which will host the Kubernetes control plane in `controller-as` [Availability Set](https://docs.microsoft.com/azure/virtual-machines/linux/tutorial-availability-sets#availability-set-overview):
 
 ```shell
 az vm availability-set create -g kubernetes -n controller-as
@@ -171,7 +171,7 @@ Each worker instance requires a pod subnet allocation from the Kubernetes cluste
 
 > The Kubernetes cluster CIDR range is defined by the Controller Manager's `--cluster-cidr` flag. In this tutorial the cluster CIDR range will be set to `10.240.0.0/16`, which supports 254 subnets.
 
-Create three compute instances which will host the Kubernetes worker nodes in `worker-as` Availability Set:
+Create two compute instances which will host the Kubernetes worker nodes in `worker-as` Availability Set:
 
 ```shell
 az vm availability-set create -g kubernetes -n worker-as
@@ -199,8 +199,8 @@ for i in 0 1; do
         --tags pod-cidr=10.200.${i}.0/24 \
         --availability-set worker-as \
         --nsg '' \
-        --admin-username 'kuberoot' > /dev/null \
-        --generate-ssh-keys
+        --generate-ssh-keys \
+        --admin-username 'kuberoot' > /dev/null
 done
 ```
 
