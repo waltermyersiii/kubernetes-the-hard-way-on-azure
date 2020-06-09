@@ -109,6 +109,8 @@ admin-key.pem
 admin.pem
 ```
 
+_Note:_ If you run previous command in Windows, surround values with `"`. for example: `cfssl.exe gencert -ca="ca.pem" -ca-key="ca-key.pem" ...`
+
 ### The Kubelet Client Certificates
 
 Kubernetes uses a [special-purpose authorization mode](https://kubernetes.io/docs/admin/authorization/node/) called Node Authorizer, that specifically authorizes API requests made by [Kubelets](https://kubernetes.io/docs/concepts/overview/components/#kubelet). In order to be authorized by the Node Authorizer, Kubelets must use a credential that identifies them as being in the `system:nodes` group, with a username of `system:node:<nodeName>`. In this section you will create a certificate for each Kubernetes worker node that meets the Node Authorizer requirements.
@@ -137,9 +139,9 @@ cat > ${instance}-csr.json <<EOF
 EOF
 
 EXTERNAL_IP=$(az network public-ip show -g kubernetes \
-  -n kubernetes-pip --query ipAddress -otsv)
+  -n kubernetes-pip --query ipAddress -o tsv)
 
-INTERNAL_IP=$(az vm show -d -n ${instance} -g kubernetes --query privateIps -otsv)
+INTERNAL_IP=$(az vm show -d -n ${instance} -g kubernetes --query privateIps -o tsv)
 
 cfssl gencert \
   -ca=ca.pem \
@@ -297,7 +299,7 @@ Retrieve the `kubernetes-the-hard-way` static IP address:
 
 ```shell
 KUBERNETES_PUBLIC_ADDRESS=$(az network public-ip show -g kubernetes \
-  -n kubernetes-pip --query "ipAddress" -otsv)
+  -n kubernetes-pip --query "ipAddress" -o tsv)
 ```
 
 Create the Kubernetes API Server certificate signing request:
@@ -395,7 +397,7 @@ Copy the appropriate certificates and private keys to each worker instance:
 ```shell
 for instance in worker-0 worker-1; do
   PUBLIC_IP_ADDRESS=$(az network public-ip show -g kubernetes \
-    -n ${instance}-pip --query "ipAddress" -otsv)
+    -n ${instance}-pip --query "ipAddress" -o tsv)
 
   scp -o StrictHostKeyChecking=no ca.pem ${instance}-key.pem ${instance}.pem kuberoot@${PUBLIC_IP_ADDRESS}:~/
 done
@@ -406,7 +408,7 @@ Copy the appropriate certificates and private keys to each controller instance:
 ```shell
 for instance in controller-0 controller-1; do
   PUBLIC_IP_ADDRESS=$(az network public-ip show -g kubernetes \
-    -n ${instance}-pip --query "ipAddress" -otsv)
+    -n ${instance}-pip --query "ipAddress" -o tsv)
 
   scp -o StrictHostKeyChecking=no ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
     service-account-key.pem service-account.pem kuberoot@${PUBLIC_IP_ADDRESS}:~/
