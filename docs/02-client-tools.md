@@ -20,33 +20,27 @@ brew install cfssl
 
 ```shell
 wget -q --show-progress --https-only --timestamping \
-  https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 \
-  https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+  https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_1.4.1_linux_amd64 \
+  https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_linux_amd64
 ```
 
 ```shell
-chmod +x cfssl_linux-amd64 cfssljson_linux-amd64
+chmod +x cfssl_1.4.1_linux_amd64 cfssljson_1.4.1_linux_amd64
 ```
 
 ```shell
-sudo mv cfssl_linux-amd64 /usr/local/bin/cfssl
+sudo mv cfssl_1.4.1_linux_amd64 /usr/local/bin/cfssl
 ```
 
 ```shell
-sudo mv cfssljson_linux-amd64 /usr/local/bin/cfssljson
+sudo mv cfssljson_1.4.1_linux_amd64 /usr/local/bin/cfssljson
 ```
 
 ### Windows
-Download your version of cfss_windows-386.exe or cfssl_windows-amd64.exe
-For windows on 32 bit use powershell, using administrative rights
-```shell
-PS C:\Windows\system32>Invoke-WebRequest -Uri https://pkg.cfssl.org/R1.2/cfssl_windows-386.exe -OutFile cfssl.exe
-PS C:\Windows\system32>Invoke-WebRequest -Uri https://pkg.cfssl.org/R1.2/cfssljson_windows-386.exe -OutFile cfssljson.exe
-```
 For windows on 64 bit use powershell, using administrative rights
 ```shell
-PS C:\Windows\system32>Invoke-WebRequest -Uri https://pkg.cfssl.org/R1.2/cfssl_windows-amd64.exe -OutFile cfssl.exe
-PS C:\Windows\system32>Invoke-WebRequest -Uri https://pkg.cfssl.org/R1.2/cfssljson_windows-amd64.exe -OutFile cfssljson.exe
+PS C:\Windows\system32>Invoke-WebRequest -Uri https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_1.4.1_windows_amd64.exe -OutFile cfssl.exe
+PS C:\Windows\system32>Invoke-WebRequest -Uri https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_windows_amd64.exe -OutFile cfssljson.exe
 ```
 
 
