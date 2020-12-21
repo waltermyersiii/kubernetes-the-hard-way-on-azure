@@ -138,7 +138,7 @@ az vm availability-set create -g kubernetes -n controller-as
 ```
 
 ```shell
-for i in 0 1; do
+for i in 0 1 2; do
     echo "[Controller ${i}] Creating public IP..."
     az network public-ip create -n controller-${i}-pip -g kubernetes > /dev/null
 
@@ -219,6 +219,7 @@ Name          ResourceGroup    PowerState    PublicIps       Location
 ------------  ---------------  ------------  --------------  ----------
 controller-0  kubernetes       VM running    XX.XXX.XXX.XXX  eastus2
 controller-1  kubernetes       VM running    XX.XXX.XXX.XXX  eastus2
+controller-2  kubernetes       VM running    XX.XXX.XXX.XXX  eastus2
 worker-0      kubernetes       VM running    XX.XXX.XXX.XXX  eastus2
 worker-1      kubernetes       VM running    XX.XXX.XXX.XXX  eastus2
 ```
