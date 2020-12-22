@@ -4,7 +4,7 @@ Kubernetes components are stateless and store cluster state in [etcd](https://gi
 
 ## Prerequisites
 
-The commands in this lab must be run on each controller instance: `controller-0` and `controller-1`. Login to each controller instance using the `az` command to find its public IP and ssh to it. Example:
+The commands in this lab must be run on each controller instance: `controller-0`, `controller-1` and `controller-2`. Login to each controller instance using the `az` command to find its public IP and ssh to it. Example:
 
 ```shell
 CONTROLLER="controller-0"
@@ -64,6 +64,7 @@ Description=etcd
 Documentation=https://github.com/coreos
 
 [Service]
+Type=notify
 ExecStart=/usr/local/bin/etcd \\
   --name ${ETCD_NAME} \\
   --cert-file=/etc/etcd/kubernetes.pem \\
@@ -76,10 +77,10 @@ ExecStart=/usr/local/bin/etcd \\
   --client-cert-auth \\
   --initial-advertise-peer-urls https://${INTERNAL_IP}:2380 \\
   --listen-peer-urls https://${INTERNAL_IP}:2380 \\
-  --listen-client-urls https://${INTERNAL_IP}:2379,http://127.0.0.1:2379 \\
+  --listen-client-urls https://${INTERNAL_IP}:2379,https://127.0.0.1:2379 \\
   --advertise-client-urls https://${INTERNAL_IP}:2379 \\
   --initial-cluster-token etcd-cluster-0 \\
-  --initial-cluster controller-0=https://10.240.0.10:2380,controller-1=https://10.240.0.11:2380 \\
+  --initial-cluster controller-0=https://10.240.0.10:2380,controller-1=https://10.240.0.11:2380,controller-2=https://10.240.0.12:2380 \\
   --initial-cluster-state new \\
   --data-dir=/var/lib/etcd
 Restart=on-failure
@@ -104,7 +105,7 @@ sudo mv etcd.service /etc/systemd/system/
 }
 ```
 
-> Remember to run the above commands on each controller node: `controller-0` and `controller-1`.
+> Remember to run the above commands on each controller node: `controller-0`, `controller-1` and `controller-2`.
 
 ## Verification
 
@@ -123,6 +124,7 @@ sudo ETCDCTL_API=3 etcdctl member list \
 ```shell
 f98dc20bce6225a0, started, controller-0, https://10.240.0.10:2380, https://10.240.0.10:2379
 ffed16798470cab5, started, controller-1, https://10.240.0.11:2380, https://10.240.0.11:2379
+3a57933972cb5131, started, controller-2, https://10.240.0.12:2380, https://10.240.0.12:2379
 ```
 
 Next: [Bootstrapping the Kubernetes Control Plane](08-bootstrapping-kubernetes-controllers.md)
