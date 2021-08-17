@@ -14,7 +14,7 @@ The Kubernetes [networking model](https://kubernetes.io/docs/concepts/cluster-ad
 
 In this section a dedicated [Virtual Network](https://docs.microsoft.com/azure/virtual-network/virtual-networks-overview) (VNet) network will be setup to host the Kubernetes cluster.
 
-Create the `kubernetes-vnet` custom VNet network with a subnet `kubernetes` provisioned with an IP address range large enough to assign a private IP address to each node in the Kubernetes cluster.:
+Create the `kubernetes-vnet` custom VNet network with a subnet `kubernetes-subnet` provisioned with an IP address range large enough to assign a private IP address to each node in the Kubernetes cluster.:
 
 ```shell
 az network vnet create -g kubernetes \
