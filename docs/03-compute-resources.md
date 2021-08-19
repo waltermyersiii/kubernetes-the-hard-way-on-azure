@@ -131,7 +131,7 @@ UBUNTULTS="Canonical:UbuntuServer:18.04-LTS:18.04.202002180"
 
 ### Kubernetes Controllers
 
-Create two compute instances which will host the Kubernetes control plane in `controller-as` [Availability Set](https://docs.microsoft.com/azure/virtual-machines/linux/tutorial-availability-sets#availability-set-overview):
+Create three compute instances which will host the Kubernetes control plane in `controller-as` [Availability Set](https://docs.microsoft.com/azure/virtual-machines/linux/tutorial-availability-sets#availability-set-overview):
 
 ```shell
 az vm availability-set create -g kubernetes -n controller-as
