@@ -36,19 +36,25 @@ ssh kuberoot@${PUBLIC_IP_ADDRESS} \
 00000010  73 2f 64 65 66 61 75 6c  74 2f 6b 75 62 65 72 6e  |s/default/kubern|
 00000020  65 74 65 73 2d 74 68 65  2d 68 61 72 64 2d 77 61  |etes-the-hard-wa|
 00000030  79 0a 6b 38 73 3a 65 6e  63 3a 61 65 73 63 62 63  |y.k8s:enc:aescbc|
-00000040  3a 76 31 3a 6b 65 79 31  3a 65 c3 db a8 fb ae 9b  |:v1:key1:e......|
-00000050  f9 09 59 0b 12 fa 4f 5d  4c 6c c5 35 28 d8 72 08  |..Y...O]Ll.5(.r.|
-00000060  f7 9e 4b 0a 6e 1d 6b 27  8f d2 7f 36 2b 11 6b 61  |..K.n.k'...6+.ka|
-00000070  53 6a a7 24 56 e2 19 ee  e7 04 94 ee b3 9c d3 c3  |Sj.$V...........|
-00000080  68 b5 b8 51 8b 01 4e d9  f0 ce 40 9a 73 5c 10 28  |h..Q..N...@.s\.(|
-00000090  18 bc ff 3a 51 4d bc 0c  6d 27 97 5c c6 bd a2 35  |...:QM..m'.\...5|
-000000a0  88 18 56 16 c7 10 12 a1  e2 cf c5 62 6c 50 7e 67  |..V........blP~g|
-000000b0  89 0c 42 56 73 69 48 bf  24 5e 91 91 56 2d 64 2f  |..BVsiH.$^..V-d/|
-000000c0  3a 35 b9 c9 08 41 d6 95  62 e8 1b 35 80 c9 8e 74  |:5...A..b..5...t|
-000000d0  79 34 bc 5b 7c 68 cd 0c  bc 11 21 c0 48 bc 92 a6  |y4.[|h....!.H...|
-000000e0  2f b5 ef 18 5c f1 00 16  19 22 e8 9c c1 8c 3c 35  |/...\...."....<5|
-000000f0  fa b3 87 51 85 bf f0 cd  0e 0a                    |...Q......|
-000000fa
+00000040  3a 76 31 3a 6b 65 79 31  3a d2 59 80 51 d6 89 4e  |:v1:key1:.Y.Q..N|
+00000050  ce 9d f8 40 fa 43 cf 0b  f7 90 33 9f 94 24 bd 29  |...@.C....3..$.)|
+00000060  6b 2b 3f 11 9f bf 29 06  fc ee 14 7f 88 c6 85 1d  |k+?...).........|
+00000070  90 ae 44 d8 72 d2 12 20  63 75 bd 5d 66 d5 8a 30  |..D.r.. cu.]f..0|
+00000080  14 32 fb 36 da ea 3f 02  94 96 57 27 fe 0b e2 82  |.2.6..?...W'....|
+00000090  4d aa c4 24 34 f8 49 bf  e5 59 9f a3 6f 6b f5 da  |M..$4.I..Y..ok..|
+000000a0  4b 2f d2 24 3c ff 7f 09  b7 d2 84 ed 43 b8 96 91  |K/.$<.......C...|
+000000b0  c8 9f 74 32 31 3e 78 2b  18 ce f2 62 ed 6e 1d 1e  |..t21>x+...b.n..|
+000000c0  08 23 88 92 41 1b aa 07  f4 d8 32 1d 51 b1 df ce  |.#..A.....2.Q...|
+000000d0  90 81 99 6c e7 26 d2 1b  b5 26 83 3d e5 70 17 97  |...l.&...&.=.p..|
+000000e0  fc cb 73 b9 90 47 65 29  bd aa 45 ef 44 4a a9 58  |..s..Ge)..E.DJ.X|
+000000f0  8b 6a b3 e0 43 ed e3 04  ae 9b 03 aa 16 80 3b 0d  |.j..C.........;.|
+00000100  d8 af 33 fe b6 6c 9e 3b  13 0a 91 ec c6 0d 7a d7  |..3..l.;......z.|
+00000110  80 8f c6 a5 8b 2a 30 67  b2 0a db 4c a8 b7 a6 4d  |.....*0g...L...M|
+00000120  6d de 47 1b be 20 1e bb  87 e1 19 8d df 25 42 ac  |m.G.. .......%B.|
+00000130  e7 93 d4 ad 00 e4 db fd  a6 99 7f 16 1e 01 5f f3  |.............._.|
+00000140  c1 f4 cf d7 4d 05 eb a8  a8 50 7e 48 bb 68 2c 43  |....M....P~H.h,C|
+00000150  e2 2f e3 18 b4 18 dd 04  b4 0a                    |./........|
+0000015a
 ```
 
 The etcd key should be prefixed with `k8s:enc:aescbc:v1:key1`, which indicates the `aescbc` provider was used to encrypt the data with the `key1` encryption key.
@@ -109,13 +115,13 @@ curl --head http://127.0.0.1:8080
 
 ```shell
 HTTP/1.1 200 OK
-Server: nginx/1.17.8
-Date: Sun, 23 Feb 2020 12:15:34 GMT
+Server: nginx/1.23.4
+Date: Sun, 02 Apr 2023 22:02:28 GMT
 Content-Type: text/html
-Content-Length: 612
-Last-Modified: Tue, 21 Jan 2020 13:36:08 GMT
+Content-Length: 615
+Last-Modified: Tue, 28 Mar 2023 15:01:54 GMT
 Connection: keep-alive
-ETag: "5e26fe48-264"
+ETag: "64230162-267"
 Accept-Ranges: bytes
 ```
 
@@ -141,7 +147,7 @@ kubectl logs $POD_NAME
 > output
 
 ```shell
-127.0.0.1 - - [23/Feb/2020:12:15:34 +0000] "HEAD / HTTP/1.1" 200 0 "-" "curl/7.68.0" "-"
+127.0.0.1 - - [02/Apr/2023:22:02:28 +0000] "HEAD / HTTP/1.1" 200 0 "-" "curl/7.87.0" "-"
 ```
 
 ### Exec
@@ -157,7 +163,7 @@ kubectl exec -ti $POD_NAME -- nginx -v
 > output
 
 ```shell
-nginx version: nginx/1.19.6
+nginx version: nginx/1.23.4
 ```
 
 ## Services
@@ -212,13 +218,13 @@ curl -I http://$EXTERNAL_IP:$NODE_PORT
 
 ```shell
 HTTP/1.1 200 OK
-Server: nginx/1.17.8
-Date: Sun, 23 Feb 2020 12:17:18 GMT
+Server: nginx/1.23.4
+Date: Sun, 02 Apr 2023 22:03:48 GMT
 Content-Type: text/html
-Content-Length: 612
-Last-Modified: Tue, 21 Jan 2020 13:36:08 GMT
+Content-Length: 615
+Last-Modified: Tue, 28 Mar 2023 15:01:54 GMT
 Connection: keep-alive
-ETag: "5e26fe48-264"
+ETag: "64230162-267"
 Accept-Ranges: bytes
 ```
 

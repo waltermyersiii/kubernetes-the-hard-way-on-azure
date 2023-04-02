@@ -14,7 +14,7 @@ This tutorial leverages the [Microsoft Azure](https://azure.microsoft.com) to st
 
 Follow the Microsoft Azure CLI 2.0 [documentation](https://github.com/azure/azure-cli#installation) to install and configure the `az` command line utility.
 
-Verify the Microsoft Azure CLI 2.0 version is 2.1.0 or higher:
+Verify the Microsoft Azure CLI 2.0 version is 2.46.0 or higher:
 
 ```shell
 az --version

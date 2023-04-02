@@ -96,6 +96,8 @@ Allocate a static IP address that will be attached to the external load balancer
 az network lb create -g kubernetes \
   -n kubernetes-lb \
   --backend-pool-name kubernetes-lb-pool \
+  --public-ip-zone 1 \
+  --sku Standard \
   --public-ip-address kubernetes-pip \
   --public-ip-address-allocation static
 ```
@@ -119,14 +121,10 @@ kubernetes       eastus2   Static        XX.XXX.XXX.XXX
 
 The compute instances in this lab will be provisioned using [Ubuntu Server](https://www.ubuntu.com/server) 18.04, which has good support for the [cri-containerd container runtime](https://github.com/kubernetes-incubator/cri-containerd). Each compute instance will be provisioned with a fixed private IP address to simplify the Kubernetes bootstrapping process.
 
-To select latest stable Ubuntu Server release run following command and replace UBUNTULTS variable below with latest row in the table.
+To select latest stable Ubuntu Server release available on Azure, set UBUNTULTS variable below.
 
 ```shell
-az vm image list --location eastus2 --publisher Canonical --offer UbuntuServer --sku 18.04-LTS --all -o table
-```
-
-```shell
-UBUNTULTS="Canonical:UbuntuServer:18.04-LTS:18.04.202002180"
+UBUNTULTS="Canonical:UbuntuServer:18.04-LTS:latest"
 ```
 
 ### Kubernetes Controllers
@@ -140,7 +138,7 @@ az vm availability-set create -g kubernetes -n controller-as
 ```shell
 for i in 0 1 2; do
     echo "[Controller ${i}] Creating public IP..."
-    az network public-ip create -n controller-${i}-pip -g kubernetes > /dev/null
+    az network public-ip create --sku Standard -z 1 -n controller-${i}-pip -g kubernetes > /dev/null
 
     echo "[Controller ${i}] Creating NIC..."
     az network nic create -g kubernetes \
@@ -158,6 +156,7 @@ for i in 0 1 2; do
         -n controller-${i} \
         --image ${UBUNTULTS} \
         --nics controller-${i}-nic \
+        --public-ip-sku Standard \
         --availability-set controller-as \
         --nsg '' \
         --admin-username 'kuberoot' \
@@ -180,7 +179,7 @@ az vm availability-set create -g kubernetes -n worker-as
 ```shell
 for i in 0 1; do
     echo "[Worker ${i}] Creating public IP..."
-    az network public-ip create -n worker-${i}-pip -g kubernetes > /dev/null
+    az network public-ip create --sku Standard -z 1 -n worker-${i}-pip -g kubernetes > /dev/null
 
     echo "[Worker ${i}] Creating NIC..."
     az network nic create -g kubernetes \
@@ -196,6 +195,7 @@ for i in 0 1; do
         -n worker-${i} \
         --image ${UBUNTULTS} \
         --nics worker-${i}-nic \
+        --public-ip-sku Standard \
         --tags pod-cidr=10.200.${i}.0/24 \
         --availability-set worker-as \
         --nsg '' \

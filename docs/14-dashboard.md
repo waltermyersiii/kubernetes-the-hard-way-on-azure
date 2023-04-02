@@ -7,7 +7,7 @@ In this lab you will install configure Kubernetes dashboard.
 Run the following command to deploy the dashboard:
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-rc5/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
 ```
 
 Create a proxy to the dashboard:
@@ -28,19 +28,27 @@ A service account and its credentials are needed to login.
 Create the service account with following command:
 
 ```shell
-kubectl create serviceaccount dashboard -n default
+cat > dashboard-adminuser.yaml <<EOF 
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+EOF
+
+kubectl apply -f dashboard-adminuser.yaml
 ```
 
 Next, add the cluster binding rules to it with this command:
 
 ```shell
-kubectl create clusterrolebinding dashboard-admin -n default --clusterrole=cluster-admin --serviceaccount=default:dashboard
+kubectl create clusterrolebinding dashboard-admin -n default --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:admin-user
 ```
 
 Copy the secret token required for your dashboard login using the below command:
 
 ```shell
-kubectl get secret $(kubectl get serviceaccount dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
+kubectl -n kubernetes-dashboard create token admin-user
 ```
 
 Finally, just copy the secret token and paste it in Dashboard Login interface, by selecting the token option (second radiobox). After Sign In you will be redirected to the Kubernetes Dashboard Homepage.

@@ -56,16 +56,16 @@ done
 List the routes in the `kubernetes-vnet`:
 
 ```shell
-az network route-table route list -g kubernetes --route-table-name kubernetes-routes -o table
+  az network route-table route list -g kubernetes --route-table-name kubernetes-routes -o table
 ```
 
 > output
 
 ```shell
-AddressPrefix    Name                            NextHopIpAddress    NextHopType       ProvisioningState    ResourceGroup
----------------  ------------------------------  ------------------  ----------------  -------------------  ---------------
-10.200.0.0/24    kubernetes-route-10-200-0-0-24  10.240.0.20         VirtualAppliance  Succeeded            kubernetes
-10.200.1.0/24    kubernetes-route-10-200-1-0-24  10.240.0.21         VirtualAppliance  Succeeded            kubernetes
+AddressPrefix    HasBgpOverride    Name                            NextHopIpAddress    NextHopType       ProvisioningState    ResourceGroup
+---------------  ----------------  ------------------------------  ------------------  ----------------  -------------------  ---------------
+10.200.0.0/24    False             kubernetes-route-10-200-0-0-24  10.240.0.20         VirtualAppliance  Succeeded            kubernetes
+10.200.1.0/24    False             kubernetes-route-10-200-1-0-24  10.240.0.21         VirtualAppliance  Succeeded            kubernetes
 ```
 
 Next: [Deploying the DNS Cluster Add-on](12-dns-addon.md)

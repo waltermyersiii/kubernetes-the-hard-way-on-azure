@@ -20,33 +20,33 @@ brew install cfssl
 
 ```shell
 wget -q --show-progress --https-only --timestamping \
-  https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_1.4.1_linux_amd64 \
-  https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_linux_amd64
+  https://github.com/cloudflare/cfssl/releases/download/v1.6.3/cfssl_1.6.3_linux_amd64 \
+  https://github.com/cloudflare/cfssl/releases/download/v1.6.3/cfssljson_1.6.3_linux_amd64
 ```
 
 ```shell
-chmod +x cfssl_1.4.1_linux_amd64 cfssljson_1.4.1_linux_amd64
+chmod +x cfssl_1.6.3_linux_amd64 cfssljson_1.6.3_linux_amd64
 ```
 
 ```shell
-sudo mv cfssl_1.4.1_linux_amd64 /usr/local/bin/cfssl
+sudo mv cfssl_1.6.3_linux_amd64 /usr/local/bin/cfssl
 ```
 
 ```shell
-sudo mv cfssljson_1.4.1_linux_amd64 /usr/local/bin/cfssljson
+sudo mv cfssljson_1.6.3_linux_amd64 /usr/local/bin/cfssljson
 ```
 
 ### Windows
 For windows on 64 bit use powershell, using administrative rights
 ```shell
-PS C:\Windows\system32>Invoke-WebRequest -Uri https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_1.4.1_windows_amd64.exe -OutFile cfssl.exe
-PS C:\Windows\system32>Invoke-WebRequest -Uri https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_windows_amd64.exe -OutFile cfssljson.exe
+PS C:\Windows\system32>Invoke-WebRequest -Uri https://github.com/cloudflare/cfssl/releases/download/v1.6.3/cfssl_1.6.3_windows_amd64.exe -OutFile cfssl.exe
+PS C:\Windows\system32>Invoke-WebRequest -Uri https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.6.3_windows_amd64.exe -OutFile cfssljson.exe
 ```
 
 
 ### Verification
 
-Verify `cfssl` version 1.4.1 or higher is installed:
+Verify `cfssl` version 1.6.3 or higher is installed:
 
 ```shell
 cfssl version
@@ -57,9 +57,8 @@ If this step fails with a runtime error, try installing cfssl following instruct
 > output
 
 ```shell
-Version: 1.4.1
-Revision: dev
-Runtime: go1.13.4
+Version: 1.6.3
+Runtime: go1.19.2
 ```
 
 ```shell
@@ -69,9 +68,8 @@ cfssljson -version
 > output
 
 ```shell
-Version: 1.4.1
-Revision: dev
-Runtime: go1.13.4
+Version: 1.6.3
+Runtime: go1.19.2
 ```
 
 ## Install kubectl
@@ -80,16 +78,8 @@ The `kubectl` command line utility is used to interact with the Kubernetes API S
 
 ### OS X
 
-```shell
-curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
 ```
-
-```shell
-chmod +x ./kubectl
-```
-
-```shell
-sudo mv ./kubectl /usr/local/bin/kubectl
+brew install kubectl
 ```
 
 ### Linux
@@ -115,7 +105,7 @@ PS C:\Windows\system32>choco install kubernetes-cli
 
 ### Verification
 
-Verify `kubectl` version 1.17.0 or higher is installed:
+Verify `kubectl` version 1.26.3 or higher is installed:
 
 ```shell
 kubectl version --client
@@ -124,19 +114,29 @@ kubectl version --client
 > output
 
 ```shell
-Client Version: version.Info{Major:"1", Minor:"17", GitVersion:"v1.17.3", GitCommit:"06ad960bfd03b39c8310aaf92d1e7c12ce618213", GitTreeState:"clean", BuildDate:"2020-02-13T18:08:14Z", GoVersion:"go1.13.8", Compiler:"gc", Platform:"darwin/amd64"}
+clientVersion:
+  buildDate: "2023-03-15T13:33:11Z"
+  compiler: gc
+  gitCommit: 9e644106593f3f4aa98f8a84b23db5fa378900bd
+  gitTreeState: clean
+  gitVersion: v1.26.3
+  goVersion: go1.19.7
+  major: "1"
+  minor: "26"
+  platform: darwin/arm64
+kustomizeVersion: v4.5.7
 ```
 
 To quick check kubectl version, you can also use the following command : 
 
 ```shell
-kubectl version --short
+ kubectl version -oyaml --client|awk '/gitVersion/{print $2;}'
 ```
 
 > output
 
 ```shell
-Client Version: v1.17.3
+v1.26.3
 ```
 
 Next: [Provisioning Compute Resources](03-compute-resources.md)

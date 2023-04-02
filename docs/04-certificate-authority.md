@@ -94,7 +94,7 @@ EOF
 Generate the `admin` client certificate and private key:
 
 ```shell
-cfssl gencert \
+ cfssl gencert \
   -ca=ca.pem \
   -ca-key=ca-key.pem \
   -config=ca-config.json \
@@ -139,7 +139,7 @@ cat > ${instance}-csr.json <<EOF
 EOF
 
 EXTERNAL_IP=$(az network public-ip show -g kubernetes \
-  -n ${instance} --query ipAddress -o tsv)
+  -n ${instance}-pip --query ipAddress -o tsv)
 
 INTERNAL_IP=$(az vm show -d -n ${instance} -g kubernetes --query privateIps -o tsv)
 

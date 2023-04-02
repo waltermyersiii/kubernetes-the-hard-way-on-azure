@@ -32,10 +32,10 @@ Download the official Kubernetes release binaries:
 
 ```shell
 wget -q --show-progress --https-only --timestamping \
-  "https://storage.googleapis.com/kubernetes-release/release/v1.17.3/bin/linux/amd64/kube-apiserver" \
-  "https://storage.googleapis.com/kubernetes-release/release/v1.17.3/bin/linux/amd64/kube-controller-manager" \
-  "https://storage.googleapis.com/kubernetes-release/release/v1.17.3/bin/linux/amd64/kube-scheduler" \
-  "https://storage.googleapis.com/kubernetes-release/release/v1.17.3/bin/linux/amd64/kubectl"
+  "https://storage.googleapis.com/kubernetes-release/release/v1.26.3/bin/linux/amd64/kube-apiserver" \
+  "https://storage.googleapis.com/kubernetes-release/release/v1.26.3/bin/linux/amd64/kube-controller-manager" \
+  "https://storage.googleapis.com/kubernetes-release/release/v1.26.3/bin/linux/amd64/kube-scheduler" \
+  "https://storage.googleapis.com/kubernetes-release/release/v1.26.3/bin/linux/amd64/kubectl"
 ```
 
 Install the Kubernetes binaries:
@@ -77,7 +77,6 @@ Documentation=https://github.com/kubernetes/kubernetes
 ExecStart=/usr/local/bin/kube-apiserver \\
   --advertise-address=${INTERNAL_IP} \\
   --allow-privileged=true \\
-  --apiserver-count=2 \\
   --audit-log-maxage=30 \\
   --audit-log-maxbackup=3 \\
   --audit-log-maxsize=100 \\
@@ -85,20 +84,20 @@ ExecStart=/usr/local/bin/kube-apiserver \\
   --authorization-mode=Node,RBAC \\
   --bind-address=0.0.0.0 \\
   --client-ca-file=/var/lib/kubernetes/ca.pem \\
-  --enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,TaintNodesByCondition,Priority,DefaultTolerationSeconds,DefaultStorageClass,PersistentVolumeClaimResize,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota \\
-  --enable-swagger-ui=true \\
+  --enable-admission-plugins=NamespaceLifecycle,NodeRestriction,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota \\
   --etcd-cafile=/var/lib/kubernetes/ca.pem \\
   --etcd-certfile=/var/lib/kubernetes/kubernetes.pem \\
   --etcd-keyfile=/var/lib/kubernetes/kubernetes-key.pem \\
   --etcd-servers=https://10.240.0.10:2379,https://10.240.0.11:2379,https://10.240.0.12:2379 \\
   --event-ttl=1h \\
-  --experimental-encryption-provider-config=/var/lib/kubernetes/encryption-config.yaml \\
+  --encryption-provider-config=/var/lib/kubernetes/encryption-config.yaml \\
   --kubelet-certificate-authority=/var/lib/kubernetes/ca.pem \\
   --kubelet-client-certificate=/var/lib/kubernetes/kubernetes.pem \\
   --kubelet-client-key=/var/lib/kubernetes/kubernetes-key.pem \\
-  --kubelet-https=true \\
-  --runtime-config=api/all=true \\
+  --runtime-config='api/all=true' \\
   --service-account-key-file=/var/lib/kubernetes/service-account.pem \\
+  --service-account-signing-key-file=/var/lib/kubernetes/service-account-key.pem \\
+  --service-account-issuer=https://${PUBLIC_IP_ADDRESS}:6443 \\
   --service-cluster-ip-range=10.32.0.0/24 \\
   --service-node-port-range=30000-32767 \\
   --tls-cert-file=/var/lib/kubernetes/kubernetes.pem \\
@@ -130,8 +129,7 @@ Documentation=https://github.com/kubernetes/kubernetes
 
 [Service]
 ExecStart=/usr/local/bin/kube-controller-manager \\
-  --address=0.0.0.0 \\
-  --allocate-node-cidrs=true \\
+  --bind-address=0.0.0.0 \\
   --cluster-cidr=10.200.0.0/16 \\
   --cluster-name=kubernetes \\
   --cluster-signing-cert-file=/var/lib/kubernetes/ca.pem \\
@@ -163,7 +161,7 @@ Create the `kube-scheduler.yaml` configuration file:
 
 ```shell
 cat <<EOF | sudo tee /etc/kubernetes/config/kube-scheduler.yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 clientConnection:
   kubeconfig: "/var/lib/kubernetes/kube-scheduler.kubeconfig"
@@ -207,15 +205,16 @@ EOF
 ### Verification
 
 ```shell
-kubectl get componentstatuses
+kubectl get componentstatuses --kubeconfig admin.kubeconfig
 ```
 
 ```shell
-NAME                 STATUS    MESSAGE              ERROR
-controller-manager   Healthy   ok
+NAME                 STATUS    MESSAGE             ERROR
 scheduler            Healthy   ok
-etcd-0               Healthy   {"health": "true"}
-etcd-1               Healthy   {"health": "true"}
+controller-manager   Healthy   ok
+etcd-0               Healthy   {"health":"true"}
+etcd-1               Healthy   {"health":"true"}
+etcd-2               Healthy   {"health":"true"}
 ```
 
 > Remember to run the above commands on each controller node: `controller-0`, `controller-1` and `controller-2`.
@@ -237,7 +236,7 @@ ssh kuberoot@${PUBLIC_IP_ADDRESS}
 Create the `system:kube-apiserver-to-kubelet` [ClusterRole](https://kubernetes.io/docs/admin/authorization/rbac/#role-and-clusterrole) with permissions to access the Kubelet API and perform most common tasks associated with managing pods:
 
 ```shell
-cat <<EOF | kubectl apply -f -
+cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -265,7 +264,7 @@ The Kubernetes API Server authenticates to the Kubelet as the `kubernetes` user 
 Bind the `system:kube-apiserver-to-kubelet` ClusterRole to the `kubernetes` user:
 
 ```shell
-cat <<EOF | kubectl apply -f -
+cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -331,12 +330,12 @@ curl --cacert ca.pem https://$KUBERNETES_PUBLIC_IP_ADDRESS:6443/version
 ```shell
 {
   "major": "1",
-  "minor": "17",
-  "gitVersion": "v1.17.3",
-  "gitCommit": "06ad960bfd03b39c8310aaf92d1e7c12ce618213",
+  "minor": "26",
+  "gitVersion": "v1.26.3",
+  "gitCommit": "9e644106593f3f4aa98f8a84b23db5fa378900bd",
   "gitTreeState": "clean",
-  "buildDate": "2020-02-11T18:07:13Z",
-  "goVersion": "go1.13.6",
+  "buildDate": "2023-03-15T13:33:12Z",
+  "goVersion": "go1.19.7",
   "compiler": "gc",
   "platform": "linux/amd64"
 }
