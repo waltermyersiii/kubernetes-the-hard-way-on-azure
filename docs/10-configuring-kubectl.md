@@ -4,6 +4,8 @@ In this lab you will generate a kubeconfig file for the `kubectl` command line u
 
 > Run the commands in this lab from the same directory used to generate the admin client certificates.
 
+Note: On Windows machines please run this command from C: drive to ensure they work 100%
+
 ## The Admin Kubernetes Configuration File
 
 Each kubeconfig requires a Kubernetes API Server to connect to. To support high availability the IP address assigned to the external load balancer fronting the Kubernetes API Servers will be used.
