@@ -108,7 +108,7 @@ PS C:\Windows\system32>choco install kubernetes-cli
 Verify `kubectl` version 1.26.3 or higher is installed:
 
 ```shell
-kubectl version --client
+kubectl version -oyaml --client
 ```
 
 > output
