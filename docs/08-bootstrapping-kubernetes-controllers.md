@@ -233,7 +233,7 @@ PUBLIC_IP_ADDRESS=$(az network public-ip show -g kubernetes \
 ssh kuberoot@${PUBLIC_IP_ADDRESS}
 ```
 
-Create the `system:kube-apiserver-to-kubelet` [ClusterRole](https://kubernetes.io/docs/admin/authorization/rbac/#role-and-clusterrole) with permissions to access the Kubelet API and perform most common tasks associated with managing pods:
+Create the `system:kube-apiserver-to-kubelet` [ClusterRole](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole) with permissions to access the Kubelet API and perform most common tasks associated with managing pods:
 
 ```shell
 cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
