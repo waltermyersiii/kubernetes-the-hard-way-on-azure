@@ -5,7 +5,7 @@ It is a fork of the great [Kubernetes The Hard Way](https://github.com/kelseyhig
 
 Azure part is based on the superb translation done by [Jonathan Carter - @lostintangent](https://twitter.com/LostInTangent) in this [fork](https://github.com/lostintangent/kubernetes-the-hard-way). He is the one who is really behind the Azure "translation".
 
-This tutorial walks you through setting up Kubernetes the hard way. This guide is not for people looking for a fully automated command to bring up a Kubernetes cluster. If that's you then check out [Azure Container Services](https://azure.microsoft.com/en-us/services/container-service), or the [Getting Started Guides](http://kubernetes.io/docs/getting-started-guides).
+This tutorial walks you through setting up Kubernetes the hard way. This guide is not for people looking for a fully automated command to bring up a Kubernetes cluster. If that's you then check out [Azure Kubernetes Service]](https://azure.microsoft.com/en-us/products/kubernetes-service/), or the [Getting Started Guides](http://kubernetes.io/docs/getting-started-guides).
 
 Kubernetes The Hard Way is optimized for learning, which means taking the long route to ensure you understand each task required to bootstrap a Kubernetes cluster.
 
