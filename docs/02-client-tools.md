@@ -40,7 +40,7 @@ sudo mv cfssljson_1.6.3_linux_amd64 /usr/local/bin/cfssljson
 For windows on 64 bit use powershell, using administrative rights
 ```shell
 PS C:\Windows\system32>Invoke-WebRequest -Uri https://github.com/cloudflare/cfssl/releases/download/v1.6.3/cfssl_1.6.3_windows_amd64.exe -OutFile cfssl.exe
-PS C:\Windows\system32>Invoke-WebRequest -Uri https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.6.3_windows_amd64.exe -OutFile cfssljson.exe
+PS C:\Windows\system32>Invoke-WebRequest -Uri https://github.com/cloudflare/cfssl/releases/download/v1.6.3/cfssljson_1.6.3_windows_amd64.exe -OutFile cfssljson.exe
 ```
 
 
