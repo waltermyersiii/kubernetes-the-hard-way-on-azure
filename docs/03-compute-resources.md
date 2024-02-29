@@ -106,7 +106,7 @@ Verify the `kubernetes-pip` static IP address was created correctly in the `kube
 
 ```shell
 az network public-ip list --query="[?name=='kubernetes-pip'].{ResourceGroup:resourceGroup, \
-  Region:location,Allocation:publicIpAllocationMethod,IP:ipAddress}" -o table
+  Region:location,Allocation:publicIPAllocationMethod,IP:ipAddress}" -o table
 ```
 
 > output
@@ -158,7 +158,6 @@ for i in 0 1 2; do
         --nics controller-${i}-nic \
         --public-ip-sku Standard \
         --availability-set controller-as \
-        --nsg '' \
         --admin-username 'kuberoot' \
         --generate-ssh-keys > /dev/null
 done
@@ -198,7 +197,6 @@ for i in 0 1; do
         --public-ip-sku Standard \
         --tags pod-cidr=10.200.${i}.0/24 \
         --availability-set worker-as \
-        --nsg '' \
         --generate-ssh-keys \
         --admin-username 'kuberoot' > /dev/null
 done
