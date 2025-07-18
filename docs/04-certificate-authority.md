@@ -394,7 +394,7 @@ service-account.pem
 ## Distribute the Client and Server Certificates
 ## If you're following the previous steps the username used to create the linux VM would be kuberoot 
 
-Walter's bash Note: For me, scp wouldn't work copying certs to workers and controllers due to lack of authentication. I went to each worker and controller reset password page, reset the configuration, and then set a new password. I then manually ran the scp command and responded to the auth challenge with the new password. Also, I found that in bash the scp command didn't didn't expand the IP address variables properly (tacking on a '\r'), so in each case I used the actual IP address.
+Walter's bash Note: For me, scp wouldn't work copying certs to workers and controllers due to lack of authentication. I went to each worker and controller reset password page, reset the configuration, and then set a new password. I then manually ran the scp command and responded to the auth challenge with the new password.
 
 Copy the appropriate certificates and private keys to each worker instance:
 
