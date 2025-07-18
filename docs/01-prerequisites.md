@@ -41,3 +41,6 @@ az group create -n kubernetes -l eastus2
 > Enable `synchronize-panes`: `ctrl+b` then `shift :`. Then type `set synchronize-panes on` at the prompt. To disable synchronization: `set synchronize-panes off`.
 
 Next: [Installing the Client Tools](02-client-tools.md)
+
+#### Walter's Note:
+It is suggested to use bash and *not* WSL. WSL has some weird behavior where it inserts a CR ('\r') when expanding variables.
