@@ -32,6 +32,8 @@ resources:
 EOF
 ```
 
+Walter's bash Note: for scp calls, follow my guidance for controllers the same as in previous step (04-certificate-authority).
+
 Copy the `encryption-config.yaml` encryption config file to each controller instance:
 
 ```shell
