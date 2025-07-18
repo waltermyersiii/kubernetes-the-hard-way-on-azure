@@ -108,6 +108,8 @@ sudo mv etcd.service /etc/systemd/system/
 
 > Remember to run the above commands on each controller node: `controller-0`, `controller-1` and `controller-2`.
 
+Walter's bash Note: You may get a timeout with controller 0. If so, proceed to controllers 1 and 2 and come back to controller 0 and rerun the commands. It should succeed.
+
 ## Verification
 
 List the etcd cluster members:
