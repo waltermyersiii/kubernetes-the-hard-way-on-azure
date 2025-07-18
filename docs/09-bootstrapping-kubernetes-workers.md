@@ -23,6 +23,8 @@ ssh kuberoot@${PUBLIC_IP_ADDRESS}
 
 ## Provisioning a Kubernetes Worker Node
 
+Walter's bash Note: The original uses v1.7.0 version of containerd. It has weird issues. 1.6.2 seems to work better so substituted here.
+
 Install the OS dependencies:
 
 ```shell
@@ -42,7 +44,7 @@ wget -q --show-progress --https-only --timestamping \
   https://storage.googleapis.com/gvisor/releases/nightly/latest/runsc \
   https://github.com/opencontainers/runc/releases/download/v1.1.5/runc.amd64 \
   https://github.com/containernetworking/plugins/releases/download/v1.2.0/cni-plugins-linux-amd64-v1.2.0.tgz \
-  https://github.com/containerd/containerd/releases/download/v1.7.0/containerd-1.7.0-linux-amd64.tar.gz \
+  https://github.com/containerd/containerd/releases/download/v1.6.2/containerd-1.6.2-linux-amd64.tar.gz
   https://storage.googleapis.com/kubernetes-release/release/v1.26.3/bin/linux/amd64/kubectl \
   https://storage.googleapis.com/kubernetes-release/release/v1.26.3/bin/linux/amd64/kube-proxy \
   https://storage.googleapis.com/kubernetes-release/release/v1.26.3/bin/linux/amd64/kubelet
@@ -70,7 +72,7 @@ Install the worker binaries:
   sudo mv kubectl kube-proxy kubelet runc runsc /usr/local/bin/
   sudo tar -xvf crictl-v1.26.1-linux-amd64.tar.gz -C /usr/local/bin/
   sudo tar -xvf cni-plugins-linux-amd64-v1.2.0.tgz -C /opt/cni/bin/
-  sudo tar -xvf containerd-1.7.0-linux-amd64.tar.gz -C containerd
+  sudo tar Czxvf /usr/local containerd-1.6.2-linux-amd64.tar.gz
   sudo mv containerd/bin/* /bin/
 }
 ```
