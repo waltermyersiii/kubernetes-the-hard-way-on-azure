@@ -2,7 +2,7 @@
 
 In this lab you will complete a series of tasks to ensure your Kubernetes cluster is functioning correctly.
 
-Walter's bash Note: If you got here, then excellent. If you see some crashing behavior of your pods as I did, they do restart and you should be able to successfully complete the smoke test. Let me know if you have any issues or if everything works as I didn't go back and start from scratch after fixing the issues as I went along.
+Walter's bash Note: If you got here, then excellent. If you see some crashing behavior of your pods as I did, it does restart and you should be able to successfully complete the smoke test. Let me know if you have any issues or if everything works as I didn't go back and start from scratch after fixing the issues as I went along.
 
 ## Data Encryption
 
