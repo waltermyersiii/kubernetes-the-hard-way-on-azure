@@ -129,16 +129,18 @@ cat << EOF | sudo tee /etc/containerd/config.toml
 [plugins]
   [plugins.cri.containerd]
     snapshotter = "overlayfs"
-    [plugins.cri.containerd.default_runtime]
-      runtime_type = "io.containerd.runtime.v1.linux"
+    [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+      SystemdCgroup = true
+    [plugins."io.containerd.grpc.v1.cri".containerd.default_runtime]
+      runtime_type = "io.containerd.runc.v2"
       runtime_engine = "/usr/local/bin/runc"
       runtime_root = ""
-    [plugins.cri.containerd.untrusted_workload_runtime]
-      runtime_type = "io.containerd.runtime.v1.linux"
+    [plugins."io.containerd.grpc.v1.cri".containerd.untrusted_workload_runtime]
+      runtime_type = "io.containerd.runc.v2"
       runtime_engine = "/usr/local/bin/runsc"
       runtime_root = "/run/containerd/runsc"
-    [plugins.cri.containerd.gvisor]
-      runtime_type = "io.containerd.runtime.v1.linux"
+    [plugins."io.containerd.grpc.v1.cri".containerd.gvisor]
+      runtime_type = "io.containerd.runc.v2"
       runtime_engine = "/usr/local/bin/runsc"
       runtime_root = "/run/containerd/runsc"
 EOF
@@ -191,6 +193,7 @@ Create the `kubelet-config.yaml` configuration file:
 cat <<EOF | sudo tee /var/lib/kubelet/kubelet-config.yaml
 kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
+cgroupDriver: systemd
 authentication:
   anonymous:
     enabled: false
