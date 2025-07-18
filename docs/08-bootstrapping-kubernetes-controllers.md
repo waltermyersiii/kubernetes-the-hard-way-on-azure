@@ -312,6 +312,8 @@ az network lb rule create -g kubernetes \
 
 ### Verification
 
+Walter's bash Note: Verification will most likely fail on the curl against the load balancer. If you add the --insecure parameter to the curl, it will work.
+
 Retrieve the `kubernetes-the-hard-way` static IP address:
 
 ```shell
