@@ -3,7 +3,7 @@
 ## Microsoft Azure
 
 #### Walter's Note:
-**It is suggested to use bash and *not* WSL. WSL has some weird behavior where it inserts a CR ('\r') when expanding variables.**
+**It is suggested to use bash and *not* WSL. WSL has some weird behavior where it inserts a CR ('\r') when expanding variables in your scripts. So you will have to execute scripts manually where there are variables if you use wSL.**
 
 This tutorial leverages the [Microsoft Azure](https://azure.microsoft.com) to streamline provisioning of the compute infrastructure required to bootstrap a Kubernetes cluster from the ground up. [Sign up](https://azure.microsoft.com/free/) for $200 in free credits. In Azure Free Trial there is a limit of 4 Cores available, therefore tutorial instructions must be changed to create 4 nodes instead of 6 (2 controllers and 2 workers).
 
