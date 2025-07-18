@@ -191,7 +191,7 @@ admin.kubeconfig
 
 ## Distribute the Kubernetes Configuration Files
 
-Walter's bash Notes: for scp calls, follow my guidance for workers and controllers the same as in previous step (04-certificate-authority).
+Walter's bash Note: for scp calls, follow my guidance for workers and controllers the same as in previous step (04-certificate-authority).
 
 Copy the appropriate `kubelet` and `kube-proxy` kubeconfig files to each worker instance:
 
